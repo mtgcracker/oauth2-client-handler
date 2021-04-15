@@ -80,8 +80,13 @@ namespace OAuth2ClientHandler.Authorizer
                         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", GetBasicAuthorizationHeaderValue());
                         break;
                     case CredentialTransportMethod.FormAuthenticationCredentials:
+                        var builder = new UriBuilder(_options.AuthorizeEndpointUrl);
+                        builder.Path = _options.Resource;
+
                         properties.Add("client_id", _options.ClientId);
                         properties.Add("client_secret", _options.ClientSecret);
+                        properties.Add("resource", builder.Uri.ToString());
+                        properties.Add("audience", _options.Audience);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -89,7 +94,7 @@ namespace OAuth2ClientHandler.Authorizer
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                if (_options.Scope != null) properties.Add("scope", string.Join(" ", _options.Scope));
+                if (_options.Scope != null) properties.Add("scope", String.Join(" ", _options.Scope));
 
                 var content = new FormUrlEncodedContent(properties);
 

@@ -13,6 +13,8 @@ namespace OAuth2ClientHandler.Authorizer
         public string Username { get; set; }
         public string Password { get; set; }
         public IEnumerable<string> Scope { get; set; }
+        public string Resource { get; set; }
+        public string Audience { get; set; }
         public GrantType GrantType { get; set; }
         public CredentialTransportMethod CredentialTransportMethod { get; set; }
         public Action<HttpStatusCode, string> OnError { get; set; }
