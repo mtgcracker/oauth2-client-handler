@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net472;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net472;net45;net5.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>1.0.0.0</Version>
     <Authors>Wouter Huysentruit</Authors>
@@ -12,6 +12,7 @@
     <PackageProjectUrl>https://github.com/huysentruitw/oauth2-client-handler</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/huysentruitw/oauth2-client-handler/master/icon.png</PackageIconUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'netstandard2.0'">

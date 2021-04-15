@@ -1,27 +1,29 @@
-﻿using System;
+﻿using OAuth2ClientHandler.Authorizer;
+using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using OAuth2ClientHandler.Authorizer;
 
 namespace OAuth2ClientHandler
 {
-    public class OAuthHttpHandler : DelegatingHandler
-    {
+	public class ApiKeyHttpHandler : DelegatingHandler
+	{
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
-        private readonly OAuthHttpHandlerOptions _options;
+        private readonly ApiKeyHttpHandlerOptions _options;
         private readonly bool _ownsHandler = false;
         private readonly IAuthorizer _authorizer;
         private TokenResponse _tokenResponse;
 
-        public OAuthHttpHandler(OAuthHttpHandlerOptions options)
-        {
-            _options = options ?? throw new ArgumentNullException(nameof(options));
+		public ApiKeyHttpHandler(ApiKeyHttpHandlerOptions options)
+		{
+			_options = options ?? throw new ArgumentNullException(nameof(options));
             InnerHandler = options.InnerHandler ?? new HttpClientHandler();
             _ownsHandler = options.InnerHandler == null;
-            _authorizer = new Authorizer.Authorizer(options.AuthorizerOptions, () => new HttpClient());
+            _authorizer = new Authorizer.ApiKeyAuthorizer(options.AuthorizerOptions);
         }
 
         protected override void Dispose(bool disposing)
